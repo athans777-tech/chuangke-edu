@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创客教育 — 让每个孩子被看见、被接纳、被点燃</title>
+    <style>
+        /* ========== 基础变量与重置 ========== */
+        :root {
+        --blue: #3B82F6;
+        --blue-light: #EFF6FF;
+        --blue-dark: #2563EB;
+        --green: #10B981;
+        --green-light: #ECFDF5;
+        --green-dark: #059669;
+        --yellow: #F59E0B;
+        --yellow-light: #FFFBEB;
+        --yellow-dark: #D97706;
+        --orange: #F97316;
+        --orange-light: #FFF7ED;
+        --orange-dark: #EA580C;
+        --warm-gray: #6B7280;
+        --light-bg: #F8FAFC;
+        --white: #FFFFFF;
+        --text: #1E293B;
+        --text-light: #94A3B8;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --shadow: 0 4px 24px rgba(30,41,59,0.08);
+            --shadow-hover: 0 8px 40px rgba(30,41,59,0.14);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+            background: var(--light-bg);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========== 导航 ========== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(248,250,252,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(30,41,59,0.06);
+            transition: box-shadow 0.3s;
+        }
+        .nav.scrolled { box-shadow: 0 2px 20px rgba(30,41,59,0.08); }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: -0.5px;
+        }
+        .nav-logo span { color: var(--text); font-weight: 400; }
+        .nav-links { display: flex; gap: 8px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover { background: var(--blue-light); color: var(--blue); }
+
+        /* ========== 通用容器 ========== */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .section {
+            padding: 80px 0;
+        }
+
+        /* ========== Hero ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            background: linear-gradient(165deg, #F8FAFC 0%, #EFF6FF 40%, #DBEAFE 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+            top: -100px;
+            right: -200px;
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            border-radius: 50%;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 700px; }
+        .hero-badge {
+            display: inline-block;
+            background: var(--white);
+            color: var(--blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 12px rgba(59,130,246,0.15);
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--warm-gray);
+            max-width: 560px;
+            margin: 0 auto 36px;
+            line-height: 1.8;
+        }
+        .hero-quote {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            text-align: left;
+            box-shadow: var(--shadow);
+            max-width: 520px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+            color: var(--warm-gray);
+            position: relative;
+        }
+        .hero-quote::before {
+            content: '"';
+            position: absolute;
+            top: 8px;
+            left: 18px;
+            font-size: 3rem;
+            color: var(--blue);
+            opacity: 0.25;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        .hero-quote p { padding-left: 24px; }
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        .scroll-hint svg { width: 24px; height: 24px; color: var(--blue); opacity: 0.5; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ========== 章节标题 ========== */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .section-label .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+        }
+        .section-label.blue { color: var(--blue); }
+        .section-label.blue .dot { background: var(--orange); }
+        .section-label.green { color: var(--green); }
+        .section-label.green .dot { background: var(--green); }
+        .section-label.blue { color: var(--blue); }
+        .section-label.blue .dot { background: var(--orange); }
+        .section-label.yellow { color: var(--yellow); }
+        .section-label.yellow .dot { background: var(--yellow); }
+
+        .section-title {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--warm-gray);
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 48px;
+        }
+
+        /* ========== 为什么 ========== */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .why-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px 18px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .why-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .why-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+        .why-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .why-card p {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        .gap-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+        }
+        .gap-section h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .gap-compare {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .gap-item {
+            text-align: center;
+        }
+        .gap-item .gap-emoji {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .gap-item .gap-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+        .gap-item .gap-desc {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            line-height: 1.6;
+        }
+        .gap-item .gap-missing {
+            display: inline-block;
+            background: #FFF3EC;
+            color: var(--blue);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 12px;
+            margin-top: 8px;
+        }
+
+        .answer-box {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--orange) 100%);
+            border-radius: var(--radius);
+            padding: 36px 40px;
+            margin-top: 32px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .answer-box::before {
+            content: '';
+            position: absolute;
+            width: 200px; height: 200px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            top: -60px; right: -60px;
+        }
+        .answer-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+        .answer-box p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* ========== 三阶段模型 ========== */
+        .stages-bg {
+            background: var(--white);
+        }
+        .stage-flow {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            position: relative;
+        }
+        .stage-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 0;
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(30,41,59,0.06);
+        }
+        .stage-item:last-child { border-bottom: none; }
+        .stage-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .stage-dot {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+        .stage-dot.blue { background: var(--orange); }
+        .stage-dot.green { background: var(--green); }
+        .stage-dot.yellow { background: var(--yellow); }
+        .stage-line {
+            width: 2px;
+            flex: 1;
+            margin-top: 8px;
+        }
+        .stage-line.blue { background: linear-gradient(to bottom, var(--blue), var(--green)); }
+        .stage-line.green { background: linear-gradient(to bottom, var(--green), var(--yellow)); }
+        .stage-line.yellow { background: var(--yellow); opacity: 0.3; }
+        .stage-content h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .stage-content .stage-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+        .stage-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .stage-detail {
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+        }
+        .stage-detail .label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .stage-detail .label.blue { color: var(--blue); }
+        .stage-detail .label.green { color: var(--green); }
+        .stage-detail .label.yellow { color: var(--yellow); }
+        .stage-detail .value {
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+        .stage-activities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .stage-activity-tag {
+            font-size: 0.82rem;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .stage-activity-tag.blue { background: var(--blue-light); color: var(--blue); }
+        .stage-activity-tag.green { background: var(--green-light); color: var(--green); }
+        .stage-activity-tag.yellow { background: var(--yellow-light); color: var(--yellow); }
+
+        .spiral-note {
+            background: var(--light-bg);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            margin-top: 32px;
+            border-left: 4px solid var(--blue);
+        }
+        .spiral-note h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .spiral-note p {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        /* 螺旋上升可视化 */
+        .spiral-visual {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .spiral-svg {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+        @media (max-width: 768px) {
+            .spiral-svg { max-width: 320px; }
+        }
+
+        /* ========== FVC 扩展区域 ========== */
+        .fvc-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow);
+        }
+        .fvc-header h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .fvc-intro {
+            background: var(--blue-light);
+            border-radius: var(--radius-sm);
+            padding: 20px 24px;
+            margin-bottom: 28px;
+        }
+        .fvc-intro-main {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+        .fvc-intro p:last-child {
+            font-size: 0.92rem;
+            color: var(--warm-gray);
+            line-height: 1.8;
+        }
+        .fvc-intro strong { color: var(--blue); }
+
+        .fvc-evolution {
+            margin-bottom: 28px;
+        }
+        .fvc-evo-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--text);
+        }
+        .fvc-evo-grid {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .fvc-evo-card {
+            flex: 1;
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+            padding: 16px 14px;
+            text-align: center;
+        }
+        .fvc-evo-stage {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .fvc-evo-desc {
+            font-size: 0.82rem;
+            color: var(--warm-gray);
+            line-height: 1.6;
+        }
+        .fvc-evo-arrow {
+            font-size: 1.2rem;
+            color: var(--warm-gray);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .fvc-rules {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .fvc-rule {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+            padding: 16px 18px;
+        }
+        .fvc-rule-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .fvc-rule-content h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .fvc-rule-content p {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            line-height: 1.6;
+        }
+        .fvc-rule-content strong { color: var(--text); font-weight: 600; }
+
+        .fvc-highlight {
+            background: linear-gradient(135deg, var(--blue-light) 0%, var(--green-light) 100%);
+            border-radius: var(--radius-sm);
+            padding: 18px 22px;
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .fvc-highlight strong { color: var(--blue); }
+
+        @media (max-width: 768px) {
+            .fvc-evo-grid { flex-direction: column; }
+            .fvc-evo-arrow { transform: rotate(90deg); }
+            .fvc-section { padding: 24px 18px; }
+        }
+
+        /* ========== 活动照片 ========== */
+        .photos-section {
+            background: var(--light-bg);
+        }
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .photo-item {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            position: relative;
+        }
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+        .photo-item.wide {
+            grid-column: span 2;
+        }
+        .photo-item .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 6px 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .photo-item:hover .photo-caption { opacity: 1; }
+
+        @media (max-width: 768px) {
+            .photos-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .photo-item.wide { grid-column: span 2; }
+        }
+
+        /* ========== 全年服务体系（四季时间线） ========== */
+        .season-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .season-block {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border-left: 4px solid transparent;
+        }
+        .season-block.spring { border-left-color: #10B981; }
+        .season-block.summer { border-left-color: #F59E0B; }
+        .season-block.autumn { border-left-color: #F97316; }
+        .season-block.winter { border-left-color: #3B82F6; }
+
+        .season-header {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .season-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .season-emoji {
+            font-size: 1.8rem;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .season-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+        .season-month {
+            font-size: 0.8rem;
+            color: var(--warm-gray);
+            background: #e2e8f0;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-left: auto;
+        }
+
+        .season-content {
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .season-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+        .season-item.highlight {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border: 1px solid #d1fae5;
+        }
+        .item-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .item-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .item-text strong {
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 700;
+        }
+        .item-text span {
+            font-size: 0.8rem;
+            color: var(--warm-gray);
+            line-height: 1.4;
+        }
+
+        .three-lines {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .three-line-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+        .three-line-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+        .three-line-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+        .three-line-card p { font-size: 0.85rem; color: var(--warm-gray); line-height: 1.7; margin-bottom: 12px; }
+        .three-line-card ul {
+            list-style: none;
+            font-size: 0.82rem;
+            color: var(--warm-gray);
+            line-height: 1.8;
+        }
+        .three-line-card ul li::before { content: '· '; font-weight: bold; }
+
+        .eco-highlight {
+            background: linear-gradient(135deg, var(--blue-light) 0%, var(--green-light) 100%);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            font-size: 0.92rem;
+            color: var(--text);
+            line-height: 1.8;
+        }
+        .eco-highlight strong { color: var(--blue); }
+
+        @media (max-width: 768px) {
+            .year-track { grid-template-columns: repeat(2, 1fr); }
+            .three-lines { grid-template-columns: 1fr; }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .three-lines { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* ========== 四根支柱 ========== */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .pillar-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+        }
+        .pillar-card:nth-child(1)::before { background: var(--orange); }
+        .pillar-card:nth-child(2)::before { background: var(--green); }
+        .pillar-card:nth-child(3)::before { background: var(--orange); }
+        .pillar-card:nth-child(4)::before { background: var(--orange); }
+        .pillar-number {
+            font-size: 3rem;
+            font-weight: 900;
+            opacity: 0.06;
+            position: absolute;
+            top: 16px; right: 20px;
+            line-height: 1;
+        }
+        .pillar-emoji {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+        .pillar-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .pillar-card p {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        /* ========== 家长能获得什么 ========== */
+        .parent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .parent-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .parent-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .parent-emoji { font-size: 2.4rem; margin-bottom: 12px; }
+        .parent-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+        .parent-card p { font-size: 0.88rem; color: var(--warm-gray); line-height: 1.7; }
+        .parent-card .parent-detail {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(30,41,59,0.06);
+            font-size: 0.82rem;
+            color: var(--text-light);
+        }
+
+        /* ========== 成长案例 ========== */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .case-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .case-header {
+            padding: 20px 24px;
+            color: var(--white);
+        }
+        .case-header.from { background: linear-gradient(135deg, #94A3B8 0%, #6B6560 100%); }
+        .case-header.to { background: linear-gradient(135deg, var(--blue) 0%, var(--orange) 100%); }
+        .case-header .case-from { font-size: 0.82rem; opacity: 0.8; }
+        .case-header .case-text { font-size: 1rem; font-weight: 600; margin-top: 4px; }
+        .case-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            background: var(--white);
+        }
+        .case-arrow svg { width: 20px; height: 20px; color: var(--blue); }
+
+        /* ========== 团队角色 ========== */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .role-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .role-emoji { font-size: 1.6rem; margin-bottom: 8px; }
+        .role-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+        .role-card .role-sub {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .role-list {
+            list-style: none;
+            font-size: 0.88rem;
+            color: var(--warm-gray);
+        }
+        .role-list li {
+            padding: 4px 0;
+            padding-left: 18px;
+            position: relative;
+            line-height: 1.6;
+        }
+        .role-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--blue);
+            font-size: 0.8rem;
+        }
+
+        /* ========== FVC ========== */
+        .fvc-box {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow);
+        }
+        .fvc-box h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .fvc-items {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+        .fvc-item {
+            text-align: center;
+        }
+        .fvc-item .fvc-emoji { font-size: 1.6rem; margin-bottom: 6px; }
+        .fvc-item .fvc-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+        .fvc-item .fvc-desc { font-size: 0.78rem; color: var(--warm-gray); line-height: 1.5; }
+
+        /* ========== 底部 ========== */
+        .footer {
+            background: var(--text);
+            color: rgba(255,255,255,0.6);
+            padding: 48px 24px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        .footer h3 {
+            color: var(--white);
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .footer p { 
+            max-width: 480px; 
+            margin: 0 auto 24px; 
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.85);
+        }
+        .footer .cta {
+            display: inline-block;
+            background: var(--orange);
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 14px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .footer .cta:hover { background: var(--orange-dark); transform: scale(1.03); }
+
+        .contact-section {
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 28px auto;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+        .contact-icon {
+            font-size: 1.3rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .contact-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75rem;
+        }
+        .contact-number {
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .contact-hint {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+        }
+        .qr-code {
+            background: var(--white);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 6px auto 0;
+            width: 120px;
+        }
+        .qr-code img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: clamp(1.5rem, 7vw, 2rem); }
+            .hero p { font-size: 0.95rem; }
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+            .gap-compare { grid-template-columns: 1fr; }
+            .stage-detail-grid { grid-template-columns: 1fr; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .parent-grid { grid-template-columns: 1fr; }
+            .cases-grid { grid-template-columns: 1fr; }
+            .roles-grid { grid-template-columns: 1fr; }
+            .fvc-items { grid-template-columns: repeat(2, 1fr); }
+            .section { padding: 56px 0; }
+            .gap-section { padding: 24px; }
+            .answer-box { padding: 24px; }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .why-grid { grid-template-columns: repeat(3, 1fr); }
+            .parent-grid { grid-template-columns: repeat(3, 1fr); }
+            .cases-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* ========== 动画 ========== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== 导航 ===== -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <div class="nav-logo">创客教育 <span>· 家长手册</span></div>
+        <div class="nav-links">
+            <a href="#why">为什么</a>
+            <a href="#stages">成长模型</a>
+            <a href="#pillars">方法论</a>
+            <a href="#parents">家长收获</a>
+            <a href="#team">团队</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">面向 10-16 岁青少年</div>
+        <h1>不是教孩子什么<br>而是搭建一个让孩子<br><span class="highlight">自发成长的生态系统</span></h1>
+        <p>全年陪伴的成长社区 · 一年50+次见面<br>让孩子被看见、被接纳、被点燃</p>
+        <div class="hero-quote">
+            <p>当代孩子物质富足，却普遍缺乏一个安全、放松、能被真实看见的空间。他们不缺课程，缺的是一个可以不看成绩单、可以不假装"我很好"、可以安心做自己的人间角落。</p>
+        </div>
+    </div>
+    <div class="scroll-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+    </div>
+</section>
+
+<!-- ===== 为什么做 ===== -->
+<section class="section" id="why">
+    <div class="container">
+        <div class="section-label blue"><span class="dot"></span>Chapter 01</div>
+        <h2 class="section-title fade-up">为什么需要创客教育？</h2>
+        <p class="section-desc fade-up">现在的孩子，物质上什么都不缺。但如果你真正坐下来和他们待一个下午，你会发现他们缺一个地方。</p>
+
+        <div class="why-grid">
+            <div class="why-card fade-up">
+                <div class="why-icon" style="background: var(--orange-light);">😤</div>
+                <h3>无处释放的情绪</h3>
+                <p>青春期情绪敏感，但没人在乎他"到底怎么了"。委屈、愤怒、难过，只能自己憋着。</p>
+            </div>
+            <div class="why-card fade-up">
+                <div class="why-icon" style="background: var(--yellow-light);">🔥</div>
+                <h3>被压抑的创造力</h3>
+                <p>脑子里有无数奇思妙想，却被"好好学习"四个字封住。好奇和创造力在重复中消磨殆尽。</p>
+            </div>
+            <div class="why-card fade-up">
+                <div class="why-icon" style="background: var(--orange-light);">🎭</div>
+                <h3>无处安放的真实自我</h3>
+                <p>需要一个可以不看成绩单、不假装"我很好"、可以安心发呆、可以突然大笑的地方。</p>
+            </div>
+            <div class="why-card fade-up">
+                <div class="why-icon" style="background: var(--yellow-light);">🌐</div>
+                <h3>找不到现实的存在感</h3>
+                <p>有才华但没人看见，精力旺盛但没有释放出口。现实中找不到位置，只能在虚拟世界寻找满足。</p>
+            </div>
+            <div class="why-card fade-up">
+                <div class="why-icon" style="background: var(--orange-light);">🏠</div>
+                <h3>家庭沟通的断裂</h3>
+                <p>家长买了最好的玩具、报了最贵的班，但说多了孩子嫌烦，管多了孩子关门，回家后什么都不说。</p>
+            </div>
+            <div class="why-card fade-up">
+                <div class="why-icon" style="background: var(--green-light);">🫂</div>
+                <h3>真实连接的缺失</h3>
+                <p>每天被问"今天怎么样"只能回答"还行"。没有一个固定的小组、一群每周见面的"自己人"。</p>
+            </div>
+        </div>
+
+        <div class="gap-section fade-up">
+            <h3>传统教育的三块"拼图"，缺了什么？</h3>
+            <div class="gap-compare">
+                <div class="gap-item">
+                    <div class="gap-emoji">🏫</div>
+                    <div class="gap-name">学校教育</div>
+                    <div class="gap-desc">教知识，功不可没</div>
+                    <div class="gap-missing">❌ 不教"怎么和人相处"</div>
+                </div>
+                <div class="gap-item">
+                    <div class="gap-emoji">🎨</div>
+                    <div class="gap-name">兴趣班</div>
+                    <div class="gap-desc">教技能，培养特长</div>
+                    <div class="gap-missing">❌ 不教"我是谁、我能做什么"</div>
+                </div>
+                <div class="gap-item">
+                    <div class="gap-emoji">🧑‍⚕️</div>
+                    <div class="gap-name">心理咨询</div>
+                    <div class="gap-desc">提供诊断和干预</div>
+                    <div class="gap-missing">❌ 不提供日常的持续陪伴</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer-box fade-up">
+            <h3>我们的答案：搭建一个从"相遇"到"相知"的成长生态系统</h3>
+            <p>相遇，给他安全感——"这里欢迎我"；相识，给他信任感——"我愿意说出真实的自己"；相知，给他价值感——"我能做到"。真正的成长不是被教出来的，而是在体验中自己长出来的。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 三阶段模型 ===== -->
+<section class="section stages-bg" id="stages">
+    <div class="container">
+        <div class="section-label green"><span class="dot"></span>Chapter 02</div>
+        <h2 class="section-title fade-up">从"相遇"到"相知"<br>三阶段成长模型</h2>
+        <p class="section-desc fade-up">孩子的成长不能拔苗助长。必须在一个有安全感、有信任感、有价值感的环境中，按照自己的节奏一步步往前走。</p>
+
+        <div class="stage-flow">
+            <!-- 相遇 -->
+            <div class="stage-item fade-up">
+                <div class="stage-marker">
+                    <div class="stage-dot blue">01</div>
+                    <div class="stage-line blue"></div>
+                </div>
+                <div class="stage-content">
+                    <h3 style="color: var(--blue);">相遇 · 安全感建设</h3>
+                    <div class="stage-subtitle">让孩子觉得"这个地方是安全的，这里的人是欢迎我的"</div>
+                    <div class="stage-detail-grid">
+                        <div class="stage-detail">
+                            <div class="label blue">情感目标</div>
+                            <div class="value">消除陌生感与戒备心，感到被欢迎、被接纳</div>
+                        </div>
+                        <div class="stage-detail">
+                            <div class="label blue">社交目标</div>
+                            <div class="value">接受与他人共处，愿意待在这个空间</div>
+                        </div>
+                        <div class="stage-detail">
+                            <div class="label blue">行为信号</div>
+                            <div class="value">主动找零食、直奔游戏桌、自发聊天、用表情回应</div>
+                        </div>
+                        <div class="stage-detail">
+                            <div class="label blue">带领人角色</div>
+                            <div class="value">100% 主导，安全感的来源</div>
+                        </div>
+                    </div>
+                    <div class="stage-activities">
+                        <span class="stage-activity-tag blue">🐸 青蛙游戏</span>
+                        <span class="stage-activity-tag blue">🎨 你画我猜</span>
+                        <span class="stage-activity-tag blue">🎲 合作类桌游</span>
+                        <span class="stage-activity-tag blue">🖌️ 共创画卷</span>
+                        <span class="stage-activity-tag blue">🔍 寻找宝藏</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 相识 -->
+            <div class="stage-item fade-up">
+                <div class="stage-marker">
+                    <div class="stage-dot green">02</div>
+                    <div class="stage-line green"></div>
+                </div>
+                <div class="stage-content">
+                    <h3 style="color: var(--green);">相识 · 信任感建立</h3>
+                    <div class="stage-subtitle">让孩子觉得"在这里，我可以做自己，我可以信任身边的人"</div>
+                    <div class="stage-detail-grid">
+                        <div class="stage-detail">
+                            <div class="label green">情感目标</div>
+                            <div class="value">愿意暴露脆弱，表达真实想法</div>
+                        </div>
+                        <div class="stage-detail">
+                            <div class="label green">社交目标</div>
+                            <div class="value">主动发起互动，能合作完成任务</div>
+                        </div>
+                        <div class="stage-detail">
+                            <div class="label green">行为信号</div>
+                            <div class="value">自发性对话、愿意求助、主动教别人规则</div>
+                        </div>
+                        <div class="stage-detail">
+                            <div class="label green">带领人角色</div>
+                            <div class="value">50%-70% 主导，逐步放手</div>
+                        </div>
+                    </div>
+                    <div class="stage-activities">
+                        <span class="stage-activity-tag green">🎭 剧本杀</span>
+                        <span class="stage-activity-tag green">⚔️ 阿瓦隆</span>
+                        <span class="stage-activity-tag green">🏗️ 塑料签搭建</span>
+                        <span class="stage-activity-tag green">📖 故事接龙</span>
+                        <span class="stage-activity-tag green">🎪 三词剧场</span>
+                        <span class="stage-activity-tag green">🥾 户外定向</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 相知 -->
+            <div class="stage-item fade-up">
+                <div class="stage-marker">
+                    <div class="stage-dot yellow">03</div>
+                    <div class="stage-line yellow"></div>
+                </div>
+                <div class="stage-content">
+                    <h3 style="color: var(--yellow);">相知 · 价值感确认</h3>
+                    <div class="stage-subtitle">让孩子觉得"我能做到，我能为这个团体创造价值"</div>
+                    <div class="stage-detail-grid">
+                        <div class="stage-detail">
+                            <div class="label yellow">情感目标</div>
+                            <div class="value">相信"我能创造价值"，从被动走向主动</div>
+                        </div>
+                        <div class="stage-detail">
+                            <div class="label yellow">社交目标</div>
+                            <div class="value">能带领、能组织、能承担角色</div>
+                        </div>
+                        <div class="stage-detail">
+                            <div class="label yellow">行为信号</div>
+                            <div class="value">主动承担任务、自发组织活动、持续输出内容</div>
+                        </div>
+                        <div class="stage-detail">
+                            <div class="label yellow">带领人角色</div>
+                            <div class="value">10% 主导，支持与见证</div>
+                        </div>
+                    </div>
+                    <div class="stage-activities">
+                        <span class="stage-activity-tag yellow">📱 小红书/抖音运营</span>
+                        <span class="stage-activity-tag yellow">🙋 轮值小助理</span>
+                        <span class="stage-activity-tag yellow">🎮 设计桌游/剧本杀</span>
+                        <span class="stage-activity-tag yellow">🎨 活动海报设计</span>
+                        <span class="stage-activity-tag yellow">🤝 带领新人</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 螺旋阶梯可视化 -->
+        <div class="spiral-visual fade-up">
+            <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" class="spiral-svg" style="max-width:340px;">
+                <defs>
+                    <linearGradient id="st1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#3B82F6"/></linearGradient>
+                    <linearGradient id="st2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#10B981"/></linearGradient>
+                    <linearGradient id="st3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FBBF24"/><stop offset="100%" stop-color="#F59E0B"/></linearGradient>
+                    <linearGradient id="st4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FB923C"/><stop offset="100%" stop-color="#F97316"/></linearGradient>
+                    <filter id="ss" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#64748b" flood-opacity="0.15"/></filter>
+                </defs>
+                
+                <!-- 背景装饰 -->
+                <circle cx="180" cy="250" r="130" fill="none" stroke="#f1f5f9" stroke-width="1"/>
+                <circle cx="180" cy="250" r="90" fill="none" stroke="#f1f5f9" stroke-width="1"/>
+                
+                <!-- 第1步：自我认知 蓝色 -->
+                <g filter="url(#ss)"><path d="M 28 395 L 28 412 Q 28 420 36 420 L 124 420 Q 132 420 132 412 L 132 395" fill="#2563EB" opacity="0.25"/><rect x="28" y="365" width="104" height="36" rx="10" fill="url(#st1)"/><rect x="28" y="365" width="104" height="14" rx="10" fill="white" opacity="0.3"/></g>
+                <text x="80" y="388" text-anchor="middle" fill="white" font-size="11" font-weight="700">自我认知</text>
+                
+                <!-- 第2步：情绪表达 蓝色 -->
+                <g filter="url(#ss)"><path d="M 88 335 L 88 352 Q 88 360 96 360 L 184 360 Q 192 360 192 352 L 192 335" fill="#2563EB" opacity="0.25"/><rect x="88" y="305" width="104" height="36" rx="10" fill="url(#st1)"/><rect x="88" y="305" width="104" height="14" rx="10" fill="white" opacity="0.3"/></g>
+                <text x="140" y="328" text-anchor="middle" fill="white" font-size="11" font-weight="700">情绪表达</text>
+                <path d="M 132 365 Q 150 352, 160 337" stroke="#BFDBFE" stroke-width="2" fill="none" stroke-dasharray="4,3"/>
+                
+                <!-- 第3步：社交连接 绿色 -->
+                <g filter="url(#ss)"><path d="M 148 275 L 148 292 Q 148 300 156 300 L 244 300 Q 252 300 252 292 L 252 275" fill="#059669" opacity="0.25"/><rect x="148" y="245" width="104" height="36" rx="10" fill="url(#st2)"/><rect x="148" y="245" width="104" height="14" rx="10" fill="white" opacity="0.3"/></g>
+                <text x="200" y="268" text-anchor="middle" fill="white" font-size="11" font-weight="700">社交连接</text>
+                <path d="M 192 305 Q 210 292, 220 277" stroke="#A7F3D0" stroke-width="2" fill="none" stroke-dasharray="4,3"/>
+                
+                <!-- 第4步：信任建立 绿色 -->
+                <g filter="url(#ss)"><path d="M 208 215 L 208 232 Q 208 240 216 240 L 304 240 Q 312 240 312 232 L 312 215" fill="#059669" opacity="0.25"/><rect x="208" y="185" width="104" height="36" rx="10" fill="url(#st2)"/><rect x="208" y="185" width="104" height="14" rx="10" fill="white" opacity="0.3"/></g>
+                <text x="260" y="208" text-anchor="middle" fill="white" font-size="11" font-weight="700">信任建立</text>
+                <path d="M 252 245 Q 270 232, 280 217" stroke="#A7F3D0" stroke-width="2" fill="none" stroke-dasharray="4,3"/>
+                
+                <!-- 第5步：规则共建 绿色 -->
+                <g filter="url(#ss)"><path d="M 168 155 L 168 172 Q 168 180 176 180 L 264 180 Q 272 180 272 172 L 272 155" fill="#059669" opacity="0.25"/><rect x="168" y="125" width="104" height="36" rx="10" fill="url(#st2)"/><rect x="168" y="125" width="104" height="14" rx="10" fill="white" opacity="0.3"/></g>
+                <text x="220" y="148" text-anchor="middle" fill="white" font-size="11" font-weight="700">规则共建</text>
+                <path d="M 260 185 Q 250 165, 260 162" stroke="#A7F3D0" stroke-width="2" fill="none" stroke-dasharray="4,3"/>
+                
+                <!-- 第6步：团队协作 黄色 -->
+                <g filter="url(#ss)"><path d="M 48 95 L 48 112 Q 48 120 56 120 L 144 120 Q 152 120 152 112 L 152 95" fill="#D97706" opacity="0.25"/><rect x="48" y="65" width="104" height="36" rx="10" fill="url(#st3)"/><rect x="48" y="65" width="104" height="14" rx="10" fill="white" opacity="0.3"/></g>
+                <text x="100" y="88" text-anchor="middle" fill="white" font-size="11" font-weight="700">团队协作</text>
+                <path d="M 168 143 Q 130 125, 125 105" stroke="#FDE68A" stroke-width="2" fill="none" stroke-dasharray="4,3"/>
+                
+                <!-- 第7步：创造力 黄色 -->
+                <g filter="url(#ss)"><path d="M 28 35 L 28 52 Q 28 60 36 60 L 124 60 Q 132 60 132 52 L 132 35" fill="#D97706" opacity="0.25"/><rect x="28" y="5" width="104" height="36" rx="10" fill="url(#st3)"/><rect x="28" y="5" width="104" height="14" rx="10" fill="white" opacity="0.3"/></g>
+                <text x="80" y="28" text-anchor="middle" fill="white" font-size="10" font-weight="700">创造力释放</text>
+                <path d="M 96 83 Q 88 60, 92 45" stroke="#FDE68A" stroke-width="2" fill="none" stroke-dasharray="4,3"/>
+                
+                <!-- 第8步：领导力 橙色 -->
+                <g filter="url(#ss)"><path d="M 88 -25 L 88 -8 Q 88 0 96 0 L 184 0 Q 192 0 192 -8 L 192 -25" fill="#EA580C" opacity="0.25"/><rect x="88" y="-55" width="104" height="36" rx="10" fill="url(#st4)"/><rect x="88" y="-55" width="104" height="14" rx="10" fill="white" opacity="0.3"/></g>
+                <text x="140" y="-32" text-anchor="middle" fill="white" font-size="10" font-weight="700">领导力萌芽</text>
+                <path d="M 132 23 Q 135 5, 140 -8" stroke="#FED7AA" stroke-width="2" fill="none" stroke-dasharray="4,3"/>
+                
+                <!-- 第9步：价值实现 橙色 顶层 -->
+                <g filter="url(#ss)"><ellipse cx="260" cy="-85" rx="58" ry="10" fill="#FED7AA" opacity="0.4"/><path d="M 208 -105 L 208 -85 Q 208 -75 218 -75 L 302 -75 Q 312 -75 312 -85 L 312 -105" fill="#EA580C" opacity="0.25"/><rect x="208" y="-135" width="104" height="36" rx="12" fill="url(#st4)"/><rect x="208" y="-135" width="104" height="14" rx="12" fill="white" opacity="0.35"/></g>
+                <text x="260" y="-112" text-anchor="middle" fill="white" font-size="11" font-weight="800">✨ 价值实现</text>
+                <path d="M 192 -37 Q 220 -50, 235 -75" stroke="#FED7AA" stroke-width="2" fill="none" stroke-dasharray="4,3"/>
+                
+                <!-- 上升箭头 -->
+                <path d="M 330 -115 L 345 -130 M 345 -130 L 348 -112 M 345 -130 L 328 -125" stroke="url(#st4)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                
+                <!-- 底部说明文字（无框） -->
+                <text x="180" y="445" text-anchor="middle" fill="#1e293b" font-size="15" font-weight="700">🪜 成长是螺旋阶梯，一步一个脚印</text>
+                <text x="180" y="470" text-anchor="middle" fill="#64748b" font-size="12">从自我认知开始，经过情绪表达、社交连接、信任建立、</text>
+                <text x="180" y="488" text-anchor="middle" fill="#64748b" font-size="12">规则共建、团队协作、创造力释放、领导力萌芽，</text>
+                <text x="180" y="506" text-anchor="middle" fill="#64748b" font-size="12">最终到达价值实现。每上一级，都站得更高，看得更远。</text>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 活动影像 ===== -->
+<section class="section photos-section" id="photos">
+    <div class="container">
+        <div class="section-label green"><span class="dot"></span>Chapter 03</div>
+        <h2 class="section-title fade-up">这些瞬间，每天都在发生</h2>
+        <p class="section-desc fade-up">从桌游破冰到传统文化体验，从团队协作到自由创作——每一张照片背后，都是真实的成长。</p>
+
+        <div class="photos-grid">
+            <div class="photo-item wide fade-up">
+                <img src="photos/boardgame_1.jpg" alt="桌游活动">
+                <div class="photo-caption">🎲 相遇阶段 · 桌游破冰</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/boardgame_2.jpg" alt="桌游活动">
+                <div class="photo-caption">🎲 专注的时刻</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/boardgame_3.jpg" alt="桌游活动">
+                <div class="photo-caption">🎲 一起想策略</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/game_1.jpg" alt="游戏环节">
+                <div class="photo-caption">🎮 游戏中的欢笑</div>
+            </div>
+            <div class="photo-item wide fade-up">
+                <img src="photos/game_2.jpg" alt="游戏环节">
+                <div class="photo-caption">🎮 团队协作的瞬间</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/game_3.jpg" alt="游戏环节">
+                <div class="photo-caption">🎮 全情投入</div>
+            </div>
+            <div class="photo-item wide fade-up">
+                <img src="photos/dumpling_1.jpg" alt="包饺子">
+                <div class="photo-caption">🥟 相识阶段 · 一起包饺子</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/dumpling_2.jpg" alt="包饺子">
+                <div class="photo-caption">🥟 协作的力量</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/dumpling_3.jpg" alt="包饺子">
+                <div class="photo-caption">🥟 自己动手的成就感</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/calligraphy_1.jpg" alt="书法课">
+                <div class="photo-caption">✍️ 书法体验</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/calligraphy_2.jpg" alt="书法课">
+                <div class="photo-caption">✍️ 静心书写</div>
+            </div>
+            <div class="photo-item wide fade-up">
+                <img src="photos/painting_1.jpg" alt="国画">
+                <div class="photo-caption">🖌️ 国画创作</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/painting_2.jpg" alt="国画">
+                <div class="photo-caption">🖌️ 笔墨之间</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/taichi_1.jpg" alt="太极">
+                <div class="photo-caption">🥋 清晨太极</div>
+            </div>
+            <div class="photo-item wide fade-up">
+                <img src="photos/taichi_2.jpg" alt="太极">
+                <div class="photo-caption">🥋 感受身体的力量</div>
+            </div>
+            <div class="photo-item fade-up">
+                <img src="photos/group_photo.jpg" alt="活动合影">
+                <div class="photo-caption">📸 我们的小家园</div>
+            </div>
+            <div class="photo-item wide fade-up">
+                <img src="photos/parent_class.jpg" alt="家长课堂">
+                <div class="photo-caption">👨‍👩‍👧 家长也在成长</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 四根支柱 ===== -->
+<section class="section" id="pillars">
+    <div class="container">
+        <div class="section-label blue"><span class="dot"></span>Chapter 04</div>
+        <h2 class="section-title fade-up">四根支柱<br>我们怎么做到</h2>
+        <p class="section-desc fade-up">四根支柱贯穿每一期活动的设计、执行和复盘，是我们所有操作方法的底层逻辑。</p>
+
+        <div class="pillars-grid">
+            <div class="pillar-card fade-up">
+                <div class="pillar-number">01</div>
+                <div class="pillar-emoji">👥</div>
+                <h3>以小组为团体</h3>
+                <p>每次活动 4-6 人，形成一个固定的、连续的小组。每周日都会见面的"自己人"。少于4人互动不够丰富，多于6人深度连接难以建立。在这个小团体里，每个孩子都无法"隐身"，都必须参与、都必须被看见。</p>
+            </div>
+            <div class="pillar-card fade-up">
+                <div class="pillar-number">02</div>
+                <div class="pillar-emoji">🎲</div>
+                <h3>以游戏为语言</h3>
+                <p>我们不说教，通用语言是游戏。桌游、剧本杀、户外活动、艺术共创……游戏有规则、有目标、有反馈、有互动，它是社会交往的微型模拟器。游戏绕过了一个人的防御机制——你不需要承认"我不擅长社交"，你只需要说"我想赢"。</p>
+            </div>
+            <div class="pillar-card fade-up">
+                <div class="pillar-number">03</div>
+                <div class="pillar-emoji">👁️</div>
+                <h3>以观察为指南</h3>
+                <p>每一期活动结束后，我们填写观察记录——记录的不是"评价"，而是"事实"。不写"她很善良"，我们写"她把草莓分给了每一个人"。不写"他进步了"，我们写"他今天主动教了别人规则"。这些观察直接影响下一期活动的设计。</p>
+            </div>
+            <div class="pillar-card fade-up">
+                <div class="pillar-number">04</div>
+                <div class="pillar-emoji">✨</div>
+                <h3>以价值为导向</h3>
+                <p>最终目标不是让孩子"玩得开心"，而是从"被动参与者"成长为"主动价值创造者"。孩子自己画的表情包被做成小红书笔记，自己设计的规则被全组采纳——当孩子亲眼看到自己的付出换来真实反馈，那种"我能行"的自信，是任何表扬都无法替代的。</p>
+            </div>
+        </div>
+
+        <!-- FVC 全员价值契约 重点介绍 -->
+        <div class="fvc-section fade-up" style="margin-top: 48px;">
+            <div class="fvc-header">
+                <h3>📋 FVC · 全员价值契约</h3>
+                <div class="fvc-intro">
+                    <p class="fvc-intro-main">FVC 不是一个"不准做什么"的禁令，而是<strong>"我们可以一起做到什么"</strong>的约定。</p>
+                    <p>想象一下：孩子在学校被批评时只能低头听着，但在我们这里，他可以举手说<strong>"这条规则我觉得可以改"</strong>。这就是 FVC——<strong>孩子有发言权</strong>。行为规范由成员共同制定、共同承诺、共同维护，而非由外部权威单方面规定。当孩子违反时，我们不惩罚，而是问："我们之前是怎么约定的？"</p>
+                </div>
+            </div>
+
+            <div class="fvc-evolution">
+                <div class="fvc-evo-title">FVC 随着孩子成长一起进化</div>
+                <div class="fvc-evo-grid">
+                    <div class="fvc-evo-card">
+                        <div class="fvc-evo-stage" style="color: var(--blue);">相遇阶段</div>
+                        <div class="fvc-evo-desc">国王提出几条简单的规则，孩子们举手表决是否同意</div>
+                    </div>
+                    <div class="fvc-evo-arrow">→</div>
+                    <div class="fvc-evo-card">
+                        <div class="fvc-evo-stage" style="color: var(--green);">相识阶段</div>
+                        <div class="fvc-evo-desc">孩子可以提出修改意见——"这条我觉得可以改""我想加一条"</div>
+                    </div>
+                    <div class="fvc-evo-arrow">→</div>
+                    <div class="fvc-evo-card">
+                        <div class="fvc-evo-stage" style="color: var(--yellow-dark);">相知阶段</div>
+                        <div class="fvc-evo-desc">轮值小助理主持 FVC 的制定和回顾，规则真正属于孩子</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fvc-rules">
+                <div class="fvc-rule">
+                    <div class="fvc-rule-icon" style="background: var(--orange-light); color: var(--orange);">🛡️</div>
+                    <div class="fvc-rule-content">
+                        <h4>安全保障</h4>
+                        <p>不伤害自己和他人。<strong>场景：</strong>游戏中有竞争，但不允许嘲笑输的人。</p>
+                    </div>
+                </div>
+                <div class="fvc-rule">
+                    <div class="fvc-rule-icon" style="background: var(--yellow-light); color: var(--yellow-dark);">💛</div>
+                    <div class="fvc-rule-content">
+                        <h4>诚实表达</h4>
+                        <p>不说谎、不伪装。<strong>场景：</strong>复盘时说"我刚才其实很难受"，而不是假装没事。</p>
+                    </div>
+                </div>
+                <div class="fvc-rule">
+                    <div class="fvc-rule-icon" style="background: var(--green-light); color: var(--green-dark);">🏃</div>
+                    <div class="fvc-rule-content">
+                        <h4>积极向前</h4>
+                        <p>鼓励尝试新事物。<strong>场景：</strong>没玩过这个桌游？没关系，先试试看。</p>
+                    </div>
+                </div>
+                <div class="fvc-rule">
+                    <div class="fvc-rule-icon" style="background: var(--orange-light); color: var(--orange);">🤲</div>
+                    <div class="fvc-rule-content">
+                        <h4>放手与跟随</h4>
+                        <p>既能领导也能被领导。<strong>场景：</strong>这局你来指挥，下局你来跟随。</p>
+                    </div>
+                </div>
+                <div class="fvc-rule">
+                    <div class="fvc-rule-icon" style="background: var(--green-light); color: var(--green-dark);">🌿</div>
+                    <div class="fvc-rule-content">
+                        <h4>照顾好自己</h4>
+                        <p>关注自己的感受和需求。<strong>场景：</strong>累了可以说"我想休息一下"，这不被视为偷懒。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fvc-highlight">
+                <p>💡 FVC 贯穿每次活动的始终——它不是某一个环节，而是所有环节的<strong>背景规则</strong>。孩子在 FVC 中学会的，不是服从，而是<strong>对自己和他人的责任</strong>。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 全年服务体系全景 ===== -->
+<section class="section" id="ecosystem">
+    <div class="container">
+        <div class="section-label blue"><span class="dot"></span>Chapter 05</div>
+        <h2 class="section-title fade-up">全年陪伴的成长社区</h2>
+        <p class="section-desc fade-up">每周日下午4小时的小组活动，是我们的起点。但创客教育远不止于此——从春天到冬天，从周日至假期，从孩子到家长，全年50+次见面，一起成长。</p>
+
+        <!-- 全年四季时间线 -->
+        <div class="season-timeline fade-up">
+
+            <!-- 🌸 春季（3-5月）-->
+            <div class="season-block spring">
+                <div class="season-header">
+                    <div class="season-badge">
+                        <span class="season-emoji">🌸</span>
+                        <span class="season-title">春季</span>
+                        <span class="season-month">3月 · 4月 · 5月</span>
+                    </div>
+                </div>
+                <div class="season-content">
+                    <div class="season-item">
+                        <div class="item-icon" style="background: var(--blue-light); color: var(--blue);">📅</div>
+                        <div class="item-text">
+                            <strong>每周日小组活动</strong>
+                            <span>持续进行，除清明节当周</span>
+                        </div>
+                    </div>
+                    <div class="season-item highlight">
+                        <div class="item-icon" style="background: var(--green-light); color: var(--green);">🏕️</div>
+                        <div class="item-text">
+                            <strong>清明春假营 · 2天1夜</strong>
+                            <span>自然探索 + 团队协作，在春天里建立连接</span>
+                        </div>
+                    </div>
+                    <div class="season-item highlight">
+                        <div class="item-icon" style="background: var(--yellow-light); color: var(--yellow);">🎪</div>
+                        <div class="item-text">
+                            <strong>五一亲子营 · 2天1夜</strong>
+                            <span>家长与孩子共同参与，创造难忘回忆</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ☀️ 夏季（6-8月）-->
+            <div class="season-block summer">
+                <div class="season-header">
+                    <div class="season-badge">
+                        <span class="season-emoji">☀️</span>
+                        <span class="season-title">夏季</span>
+                        <span class="season-month">6月 · 7月 · 8月</span>
+                    </div>
+                </div>
+                <div class="season-content">
+                    <div class="season-item">
+                        <div class="item-icon" style="background: var(--blue-light); color: var(--blue);">📅</div>
+                        <div class="item-text">
+                            <strong>每周日小组活动</strong>
+                            <span>6月持续进行，7-8月暂停（营队密集期）</span>
+                        </div>
+                    </div>
+                    <div class="season-item highlight">
+                        <div class="item-icon" style="background: var(--green-light); color: var(--green);">🏖️</div>
+                        <div class="item-text">
+                            <strong>暑期夏令营 · 多期可选</strong>
+                            <span>3-5天深度体验，传统文化/自然探索/团队协作主题</span>
+                        </div>
+                    </div>
+                    <div class="season-item highlight">
+                        <div class="item-icon" style="background: var(--orange-light); color: var(--orange);">👨‍👩‍👧</div>
+                        <div class="item-text">
+                            <strong>暑期亲子共创营</strong>
+                            <span>设置家长参与日，见证孩子的蜕变</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🍂 秋季（9-11月）-->
+            <div class="season-block autumn">
+                <div class="season-header">
+                    <div class="season-badge">
+                        <span class="season-emoji">🍂</span>
+                        <span class="season-title">秋季</span>
+                        <span class="season-month">9月 · 10月 · 11月</span>
+                    </div>
+                </div>
+                <div class="season-content">
+                    <div class="season-item">
+                        <div class="item-icon" style="background: var(--blue-light); color: var(--blue);">📅</div>
+                        <div class="item-text">
+                            <strong>每周日小组活动</strong>
+                            <span>9月恢复，持续到11月，除十一长假当周</span>
+                        </div>
+                    </div>
+                    <div class="season-item highlight">
+                        <div class="item-icon" style="background: var(--yellow-light); color: var(--yellow);">🎉</div>
+                        <div class="item-text">
+                            <strong>十一国庆营 · 2天1夜</strong>
+                            <span> harvest主题，收获与感恩</span>
+                        </div>
+                    </div>
+                    <div class="season-item">
+                        <div class="item-icon" style="background: #f3e8ff; color: #9333ea;">🎯</div>
+                        <div class="item-text">
+                            <strong>学期中段复盘</strong>
+                            <span>回顾孩子成长，调整下学期方向</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ❄️ 冬季（12-2月）-->
+            <div class="season-block winter">
+                <div class="season-header">
+                    <div class="season-badge">
+                        <span class="season-emoji">❄️</span>
+                        <span class="season-title">冬季</span>
+                        <span class="season-month">12月 · 1月 · 2月</span>
+                    </div>
+                </div>
+                <div class="season-content">
+                    <div class="season-item">
+                        <div class="item-icon" style="background: var(--blue-light); color: var(--blue);">📅</div>
+                        <div class="item-text">
+                            <strong>每周日小组活动</strong>
+                            <span>12月持续，1月-2月初寒假暂停</span>
+                        </div>
+                    </div>
+                    <div class="season-item highlight">
+                        <div class="item-icon" style="background: var(--green-light); color: var(--green);">⛄</div>
+                        <div class="item-text">
+                            <strong>寒假冬令营 · 多期可选</strong>
+                            <span>春节前后各1-2期，年味体验与冬日探索</span>
+                        </div>
+                    </div>
+                    <div class="season-item">
+                        <div class="item-icon" style="background: var(--orange-light); color: var(--orange);">🎊</div>
+                        <div class="item-text">
+                            <strong>年末家庭聚会</strong>
+                            <span>全年社区成员欢聚，分享成长故事</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 三条线 -->
+        <div class="three-lines fade-up">
+            <div class="three-line-card">
+                <div class="three-line-icon" style="background: var(--blue-light); color: var(--blue);">👦</div>
+                <h3>孩子成长线</h3>
+                <p>周日小组活动贯穿全年，假期营队密集体验，平日按需支持休学孩子。</p>
+                <ul>
+                    <li>每周日 4小时小组活动（除过年）</li>
+                    <li>假期营队：春假 / 五一 / 暑期 / 十一 / 寒假</li>
+                    <li>周一至周五 休学孩子陪伴（按需）</li>
+                </ul>
+            </div>
+            <div class="three-line-card">
+                <div class="three-line-icon" style="background: var(--green-light); color: var(--green-dark);">👨‍👩‍👧</div>
+                <h3>家长参与线</h3>
+                <p>每月一次家长会，每周日可邀请1位家长参与，假期营队设置亲子板块。</p>
+                <ul>
+                    <li>每月1次家长会（子央老师主持）</li>
+                    <li>每周日可选家长参与</li>
+                    <li>假期营队亲子深度共创</li>
+                </ul>
+            </div>
+            <div class="three-line-card">
+                <div class="three-line-icon" style="background: var(--orange-light); color: var(--orange);">💪</div>
+                <h3>特殊支持线</h3>
+                <p>为需要更多陪伴的孩子，提供平日灵活的成长支持。</p>
+                <ul>
+                    <li>休学孩子的平日陪伴</li>
+                    <li>按需灵活安排</li>
+                    <li>与家长紧密协作</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="eco-highlight fade-up">
+            <p>💡 创客教育不是兴趣班，不是补习班，也不是心理咨询室。它是一个<strong>全年陪伴的成长社区</strong>——孩子在这里找到归属，家长在这里找到支持。</p>
+        </div>
+    </div>
+</section
+
+<!-- ===== 家长收获 ===== -->
+<section class="section" id="parents">
+    <div class="container">
+        <div class="section-label yellow"><span class="dot"></span>Chapter 06</div>
+        <h2 class="section-title fade-up">家长参与方式</h2>
+        <p class="section-desc fade-up">孩子的问题不只在孩子身上。创客教育为家长设计了三种参与方式，让家长和孩子一起成长。</p>
+
+        <div class="parent-grid">
+            <div class="parent-card fade-up">
+                <div class="parent-emoji">👨‍👩‍👧</div>
+                <h3>每周日 · 可选家长参与</h3>
+                <p>每期活动邀请1位家长一起参与，在同一个场域里看到孩子真实的样子。家长不再是"旁观者"，而是"参与者"。</p>
+                <div class="parent-detail">每周日 13:30-17:30<br>灵活参与</div>
+            </div>
+            <div class="parent-card fade-up">
+                <div class="parent-emoji">💬</div>
+                <h3>每月 · 家长会</h3>
+                <p>每月1次，子央老师主持。从心理学角度解读孩子在活动中的行为，分享观察到的共性现象，回应家长的真实困惑。</p>
+                <div class="parent-detail">1.5-2小时 · 子央老师主持<br>专业解读 + 家长互助</div>
+            </div>
+            <div class="parent-card fade-up">
+                <div class="parent-emoji">🏕️</div>
+                <h3>假期营队 · 亲子共创</h3>
+                <p>每个假期营队都设置亲子板块。春节、五一、暑期、国庆——家长和孩子一起参与，在真实互动中重新认识彼此。</p>
+                <div class="parent-detail">春假营 / 五一营 / 暑期夏令营<br>十一营 / 寒假冬令营</div>
+            </div>
+            <div class="parent-card fade-up">
+                <div class="parent-emoji">📱</div>
+                <h3>有温度的反馈</h3>
+                <p>每期活动后24小时内，收到描述式反馈——不是冷冰冰的"表现等级"，而是"今天他主动把草莓分给了每个人"。</p>
+                <div class="parent-detail">整体复盘 + 个人复盘<br>24小时内送达</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 成长案例 ===== -->
+<!-- ===== 团队角色 ===== -->
+<section class="section" id="team">
+    <div class="container">
+        <div class="section-label blue"><span class="dot"></span>Chapter 07</div>
+        <h2 class="section-title fade-up">谁在陪伴你的孩子</h2>
+        <p class="section-desc fade-up">每次活动有四个角色在同时运作，各司其职，确保每个孩子都被看见、被守护。</p>
+
+        <div class="roles-grid">
+            <div class="role-card fade-up">
+                <div class="role-emoji">👑</div>
+                <h3>国王（带领人）</h3>
+                <div class="role-sub">安全感的来源 · 活动发起人 · 观察者</div>
+                <ul class="role-list">
+                    <li>让每个孩子知道"这个地方是安全的"</li>
+                    <li>选择玩什么、控制节奏、判断何时介入</li>
+                    <li>半在场状态——既参与其中，又时刻观察</li>
+                    <li>相遇阶段100%主导，相知阶段退到10%</li>
+                </ul>
+            </div>
+            <div class="role-card fade-up">
+                <div class="role-emoji">🧠</div>
+                <h3>子央老师</h3>
+                <div class="role-sub">情绪安全网 · 专业支持</div>
+                <ul class="role-list">
+                    <li>专注观察每个孩子的情绪状态和非语言信号</li>
+                    <li>当孩子情绪波动时，第一时间发现并陪伴</li>
+                    <li>家长会主持人，从心理学角度解读行为</li>
+                    <li>家长成长营核心带领者</li>
+                    <li>营队期间24小时情绪安全守护</li>
+                </ul>
+            </div>
+            <div class="role-card fade-up">
+                <div class="role-emoji">🤗</div>
+                <h3>轮值</h3>
+                <div class="role-sub">协助 · 陪伴 · 在场</div>
+                <ul class="role-list">
+                    <li>协助国王维持活动节奏和秩序</li>
+                    <li>在国王深度互动时照看其他孩子</li>
+                    <li>必要时成为某个孩子的"一对一陪伴者"</li>
+                    <li>不负责"教"，只负责"在"</li>
+                </ul>
+            </div>
+            <div class="role-card fade-up">
+                <div class="role-emoji">🙋</div>
+                <h3>轮值小助理</h3>
+                <div class="role-sub">从孩子中选出的临时角色</div>
+                <ul class="role-list">
+                    <li>协助摆桌游、发零食、记录分数</li>
+                    <li>让孩子体验"被信任""被赋予责任"</li>
+                    <li>很多孩子的转变从第一次当小助理开始</li>
+                    <li>相知阶段可提出"我觉得这个环节可以调整"</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== 生态系统 ===== -->
+<section class="section" style="background: var(--white);">
+    <div class="container">
+        <div class="section-label blue"><span class="dot"></span>Chapter 08</div>
+        <h2 class="section-title fade-up">一起走过的路<br>真实发生的转变</h2>
+        <p class="section-desc fade-up">不是"每周日下午带孩子玩"的单一活动，而是包含多个层次、多个角色的完整系统。孩子的问题不是孤立的，家庭环境必须同步改变。</p>
+
+        <!-- 真实转变 -->
+        <div class="cases-grid" style="margin-bottom: 32px;">
+            <div class="case-card fade-up">
+                <div class="case-header from">
+                    <div class="case-from">从前</div>
+                    <div class="case-text">"我不敢说"</div>
+                </div>
+                <div class="case-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                </div>
+                <div class="case-header to">
+                    <div class="case-from" style="opacity: 0.8;">现在</div>
+                    <div class="case-text">"我来教规则"</div>
+                </div>
+            </div>
+            <div class="case-card fade-up">
+                <div class="case-header from">
+                    <div class="case-from">从前</div>
+                    <div class="case-text">"我不知道玩什么"</div>
+                </div>
+                <div class="case-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                </div>
+                <div class="case-header to">
+                    <div class="case-from" style="opacity: 0.8;">现在</div>
+                    <div class="case-text">"我自己设计了一个桌游"</div>
+                </div>
+            </div>
+            <div class="case-card fade-up">
+                <div class="case-header from">
+                    <div class="case-from">从前</div>
+                    <div class="case-text">"我的画没人看"</div>
+                </div>
+                <div class="case-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                </div>
+                <div class="case-header to">
+                    <div class="case-from" style="opacity: 0.8;">现在</div>
+                    <div class="case-text">"我的作品被做成了小红书笔记"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer-box fade-up">
+            <h3>只有当孩子和家长都在成长，真正的改变才会发生</h3>
+            <p>创客教育不是兴趣班，不是补习班，也不是心理咨询室。它是一个<strong>全年陪伴的成长社区</strong>——孩子在这里找到归属，家长在这里找到支持。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 底部 ===== -->
+<footer class="footer">
+    <h3>创客教育</h3>
+    <p>全年陪伴的成长社区 · 一年50+次见面<br>让孩子被看见、被接纳、被点燃</p>
+    
+    <div class="contact-section">
+        <div class="contact-item">
+            <div class="contact-icon">👨‍🏫</div>
+            <div class="contact-info">
+                <span class="contact-label">朱老师</span>
+                <a href="tel:13915991313" class="contact-number">139-1599-1313</a>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-icon">💬</div>
+            <div class="contact-info">
+                <span class="contact-label">微信咨询</span>
+                <span class="contact-hint">扫码添加朱老师</span>
+            </div>
+        </div>
+        <div class="qr-code">
+            <img src="wechat-qr.jpg" alt="微信二维码">
+        </div>
+    </div>
+    
+    <a href="tel:13915991313" class="cta">📞 立即预约体验</a>
+    
+    <div style="margin-top: 32px; font-size: 0.78rem; opacity: 0.5;">
+        © 2026 创客教育 · 面向 10-16 岁青少年的社会情感能力与创造力培养体系
+    </div>
+</footer>
+
+<script>
+// 导航滚动效果
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// 渐入动画
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// 导航高亮
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (window.scrollY >= sectionTop) {
+            current = section.getAttribute('id');
+        }
+    });
+    navLinks.forEach(link => {
+        link.style.background = '';
+        link.style.color = '';
+        if (link.getAttribute('href') === '#' + current) {
+            link.style.background = 'var(--blue-light)';
+            link.style.color = 'var(--blue)';
+        }
+    });
+});
+</script>
+</body>
+</html>>
+
+
