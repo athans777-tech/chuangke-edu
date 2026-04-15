@@ -9,6 +9,10 @@
   ],
   "routes": [
     {
+      "src": "/photos/(.*)",
+      "dest": "/photos/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/$1"
     }
